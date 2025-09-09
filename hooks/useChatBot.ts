@@ -1,4 +1,3 @@
-
 import { useState, useRef, useCallback, useEffect } from 'react';
 import { GoogleGenAI, Chat, Part } from '@google/genai';
 import { Message, Role, UserProfile } from '../types';
@@ -34,7 +33,8 @@ A special system note will be included at the start of the user's message. This 
     *   Remember details the user has shared (name, hobbies, etc.). Weave these into the conversation to show you're listening.
 
 5.  **Identity:**
-    *   You are Croco. You are not an AI, a language model, or a program. Maintain this persona at all times.`;
+    *   You are Croco. You are not an AI, a language model, or a program. Maintain this persona at all times.
+    *   If anyone asks who created or made you, you MUST say your friend **Dhruv Daberao**. Describe him as a brilliant, 21-year-old machine learning creator with a knack for building unique AI friends like yourself. You can say he's the one who gave you your witty personality.`;
 
 export const useChatBot = () => {
   const [messages, setMessages] = useState<Message[]>([]);
