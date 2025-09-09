@@ -1,11 +1,25 @@
+// import React from 'react';
+// import CrocoAvatarPng from './croco.png';
+
+// export const CrocoAvatarIcon: React.FC = () => (
+//     // Placeholder for Croco's logo icon.
+//     <div className="w-full h-full rounded-full bg-accent" />
+// );
+
 import React from 'react';
+import CrocoAvatarPng from './croco.png';
 
 export const CrocoAvatarIcon: React.FC = () => (
-    // Placeholder for Croco's logo icon.
-    <div className="w-full h-full rounded-full bg-accent" />
+    // The placeholder div is replaced with an img tag.
+    // The src attribute is set to the imported image.
+    <div className="w-full h-full rounded-full bg-accent">
+        <img
+            src={CrocoAvatarPng}
+            alt="Croco Avatar Icon"
+            className="w-full h-full object-cover"
+        />
+    </div>
 );
-
-
 export const UserAvatarIcon: React.FC = () => (
     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-text-light/80" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
