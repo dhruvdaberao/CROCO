@@ -42,10 +42,17 @@
 
 
 
+
 import React from 'react';
 
-export const CrocoAvatarIcon: React.FC = () => (
-    <img src="/croco.png" alt="Croco Avatar" className="w-full h-full rounded-full object-cover" />
+interface CrocoAvatarIconProps {
+  isLarge?: boolean;
+}
+
+export const CrocoAvatarIcon: React.FC<CrocoAvatarIconProps> = ({ isLarge = false }) => (
+    <div className={`w-full h-full rounded-full bg-secondary/90 flex items-center justify-center ${isLarge ? 'border-2 border-dotted border-accent/30' : 'border border-accent/20'}`}>
+        <img src="/croco.png" alt="Croco Avatar" className="w-3/4 h-3/4 object-contain" />
+    </div>
 );
 
 
