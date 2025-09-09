@@ -79,15 +79,40 @@ import TypingIndicator from './components/TypingIndicator';
 import { CrocoAvatarIcon } from './components/Icons';
 
 const App: React.FC = () => {
-  const { messages, sendMessage, isLoading, error, userAvatar, userName } = useChatBot();
+  const { messages, sendMessage, isLoading, error, userAvatar, userName, updateUserAvatar } = useChatBot();
   const chatEndRef = useRef<HTMLDivElement>(null);
+  const avatarInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages, isLoading]);
 
+  const handleAvatarClick = () => {
+    avatarInputRef.current?.click();
+  };
+
+  const handleAvatarFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const base64String = reader.result as string;
+        updateUserAvatar(base64String);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   return (
     <div className="w-full h-screen bg-primary text-text-light font-sans flex flex-col">
+      <input
+        type="file"
+        ref={avatarInputRef}
+        onChange={handleAvatarFileChange}
+        accept="image/*"
+        className="hidden"
+        aria-hidden="true"
+      />
       <header className="bg-secondary/80 backdrop-blur-sm shadow-sm sticky top-0 z-10 border-b border-gray-200">
         <div className="max-w-4xl mx-auto p-4 flex items-center space-x-4">
           <div className="w-12 h-12">
@@ -100,40 +125,43 @@ const App: React.FC = () => {
         </div>
       </header>
 
-      <div className="w-full max-w-4xl mx-auto flex-1 flex flex-col overflow-y-hidden">
-        <main className="flex-1 overflow-y-auto p-4 md:p-6 space-y-6 no-scrollbar">
-          {messages.length === 0 && !isLoading && userName && (
-            <div className="flex flex-col items-center justify-center h-full text-center text-text-light/70 animate-fade-in">
-              <div className="w-24 h-24 mb-4 opacity-50">
-                <CrocoAvatarIcon />
-              </div>
-              <h2 className="text-2xl font-semibold text-text-light">Hi {userName}!</h2>
-              <p className="max-w-md mt-2">What can I help you with today?</p>
+      <main className="w-full max-w-4xl mx-auto flex-1 overflow-y-auto p-4 md:p-6 space-y-6 no-scrollbar">
+        {messages.length === 0 && !isLoading && userName && (
+          <div className="flex flex-col items-center justify-center h-full text-center text-text-light/70 animate-fade-in">
+            <div className="w-24 h-24 mb-4 opacity-50">
+              <CrocoAvatarIcon />
             </div>
-          )}
+            <h2 className="text-2xl font-semibold text-text-light">Hi {userName}!</h2>
+            <p className="max-w-md mt-2">What can I help you with today?</p>
+          </div>
+        )}
 
-          {messages.map((msg, index) => (
-            <ChatMessage key={index} message={msg} userAvatar={userAvatar} />
-          ))}
+        {messages.map((msg, index) => (
+          <ChatMessage 
+            key={index} 
+            message={msg} 
+            userAvatar={userAvatar}
+            onAvatarClick={handleAvatarClick}
+          />
+        ))}
 
-          {isLoading && <TypingIndicator />}
+        {isLoading && <TypingIndicator />}
 
-          {error && (
-            <div className="flex justify-center">
-              <div className="bg-red-500/10 text-red-700 p-3 rounded-lg max-w-md animate-fade-in border border-red-200">
-                <p className="font-bold">Oops, something went wrong.</p>
-                <p className="text-sm">{error}</p>
-              </div>
+        {error && (
+          <div className="flex justify-center">
+            <div className="bg-red-500/10 text-red-700 p-3 rounded-lg max-w-md animate-fade-in border border-red-200">
+              <p className="font-bold">Oops, something went wrong.</p>
+              <p className="text-sm">{error}</p>
             </div>
-          )}
+          </div>
+        )}
 
-          <div ref={chatEndRef} />
-        </main>
+        <div ref={chatEndRef} />
+      </main>
 
-        <footer className="p-4 md:p-6">
-          <ChatInput onSend={sendMessage} isLoading={isLoading} />
-        </footer>
-      </div>
+      <footer className="w-full max-w-4xl mx-auto p-4 md:p-6 bg-primary">
+        <ChatInput onSend={sendMessage} isLoading={isLoading} />
+      </footer>
     </div>
   );
 };
