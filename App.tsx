@@ -1,4 +1,3 @@
-
 import React, { useRef, useEffect } from 'react';
 import { useChatBot } from './hooks/useChatBot';
 import ChatMessage from './components/ChatMessage';
@@ -33,7 +32,7 @@ const App: React.FC = () => {
           {messages.length === 0 && !isLoading && (
             <div className="flex flex-col items-center justify-center h-full text-center text-text-light/70 animate-fade-in">
               <div className="w-24 h-24 mb-4 opacity-50">
-                <CrocoAvatarIcon isLarge={true} />
+                <CrocoAvatarIcon />
               </div>
               <h2 className="text-2xl font-semibold text-text-light">Alright, what's the situation?</h2>
               <p className="max-w-md mt-2">I'm here to listen or help you get things done. Your call.</p>
