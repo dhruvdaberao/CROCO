@@ -125,7 +125,7 @@ const App: React.FC = () => {
         </div>
       </header>
 
-      <main className="w-full max-w-4xl mx-auto flex-1 overflow-y-auto p-4 md:p-6 space-y-6 no-scrollbar">
+      <main className="w-full max-w-4xl mx-auto flex-1 min-h-0 overflow-y-auto p-4 md:p-6 space-y-6 no-scrollbar">
         {messages.length === 0 && !isLoading && userName && (
           <div className="flex flex-col items-center justify-center h-full text-center text-text-light/70 animate-fade-in">
             <div className="w-24 h-24 mb-4 opacity-50">
