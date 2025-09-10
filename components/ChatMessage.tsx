@@ -9,7 +9,11 @@ interface ChatMessageProps {
 }
 
 const renderFormattedText = (text: string) => {
-  const formattedText = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+  // Process bold (**...**) first to avoid conflicts with single asterisks.
+  let formattedText = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+  // Process single-asterisk emphasis (*...*) and also render it as bold.
+  // This regex specifically looks for a single asterisk, followed by characters that are not asterisks, and then a closing asterisk.
+  formattedText = formattedText.replace(/\*([^\*]+)\*/g, '<strong>$1</strong>');
   return { __html: formattedText };
 };
 
@@ -21,13 +25,13 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message, userAvatar, onAvatar
     : 'flex items-end flex-row-reverse space-x-3 space-x-reverse';
   
   const bubbleClasses = isModel
-    ? 'bg-model-bg text-text-dark rounded-r-2xl rounded-bl-2xl border border-gray-200/80 overflow-hidden'
-    : 'bg-user-bg text-white font-medium rounded-l-2xl rounded-br-2xl overflow-hidden';
+    ? 'bg-model-bg text-text-dark rounded-t-2xl rounded-br-2xl border border-gray-200/80 overflow-hidden'
+    : 'bg-user-bg text-white font-medium rounded-t-2xl rounded-bl-2xl overflow-hidden';
 
   const avatarComponent = (
     <div
       className={`w-8 h-8 flex-shrink-0 overflow-hidden ${
-        isModel ? "" : "rounded-full"
+        isModel ? "rounded-lg" : "rounded-full"
       }`}
     >
       {isModel ? (
@@ -46,6 +50,7 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message, userAvatar, onAvatar
     </div>
   );
 
+
   return (
     <div className={`animate-fade-in ${containerClasses}`}>
       {isModel ? (
@@ -53,7 +58,7 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message, userAvatar, onAvatar
       ) : (
         <button 
           onClick={onAvatarClick} 
-          className="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-primary focus:ring-accent rounded-full transition-opacity hover:opacity-80"
+          className="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-primary focus:ring-accent rounded-lg transition-opacity hover:opacity-80"
           aria-label="Change profile picture"
         >
           {avatarComponent}
