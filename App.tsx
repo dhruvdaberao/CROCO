@@ -47,7 +47,7 @@ const App: React.FC = () => {
           </div>
           <div>
             <h1 className="text-xl font-bold text-text-light">Croco</h1>
-            <p className="text-sm text-text-light/70">Your AI Friend</p>
+            <p className="text-sm text-text-light/70">Your AI Pal</p>
           </div>
         </div>
       </header>
