@@ -25,13 +25,23 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message, userAvatar, onAvatar
     : 'bg-user-bg text-white font-medium rounded-l-2xl rounded-br-2xl overflow-hidden';
 
   const avatarComponent = (
-    <div className="w-8 h-8  flex-shrink-0 overflow-hidden">
-      {isModel ? <CrocoAvatarIcon /> : (
-          userAvatar ? 
-          <img src={userAvatar} alt="User Avatar" className="w-full h-full object-cover" /> :
-          <div className="w-full h-full rounded-full bg-accent/80 flex items-center justify-center">
-               <UserAvatarIcon />
-          </div>
+    <div
+      className={`w-8 h-8 flex-shrink-0 overflow-hidden ${
+        isModel ? "" : "rounded-full"
+      }`}
+    >
+      {isModel ? (
+        <CrocoAvatarIcon />
+      ) : userAvatar ? (
+        <img
+          src={userAvatar}
+          alt="User Avatar"
+          className="w-full h-full object-cover rounded-full"
+        />
+      ) : (
+        <div className="w-full h-full rounded-full bg-accent/80 flex items-center justify-center">
+          <UserAvatarIcon />
+        </div>
       )}
     </div>
   );
