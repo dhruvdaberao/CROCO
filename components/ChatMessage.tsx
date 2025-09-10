@@ -25,7 +25,7 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message, userAvatar, onAvatar
     : 'bg-user-bg text-white font-medium rounded-l-2xl rounded-br-2xl overflow-hidden';
 
   const avatarComponent = (
-    <div className="w-8 h-8 rounded-full flex-shrink-0 overflow-hidden">
+    <div className="w-8 h-8  flex-shrink-0 overflow-hidden">
       {isModel ? <CrocoAvatarIcon /> : (
           userAvatar ? 
           <img src={userAvatar} alt="User Avatar" className="w-full h-full object-cover" /> :
