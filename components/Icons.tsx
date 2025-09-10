@@ -1,7 +1,7 @@
 import React from 'react';
 
 export const CrocoAvatarIcon: React.FC = () => (
-    <img src="/croco.png" alt="Croco Avatar" className="w-full h-full rounded-full object-cover" />
+    <img src="/croco.png" alt="Croco Avatar" className="w-full h-full object-cover" />
 );
 
 
